@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌐 Clase Final - Plantilla (Ejemplo)</title>
+</head>
+<body>
+  <!-- =========================================================================
+       🌐 CLASE FINAL · PLANTILLA GUIADA (EJEMPLO)
+       Autor: Joaquín
+       Objetivo: Aprender a estructurar una página HTML completa paso a paso.
+       NOTA: Aquí NO usamos CSS ni JavaScript todavía, solo HTML.
+       =========================================================================
+
+       Convención de comentarios (Better Comments):
+       ! Importante: Idea clave
+       ? Nota: Aclaración o truco
+       * Ejemplo: Código de referencia
+       TODO Alumno: Tarea a realizar por ti
+  -->
+
+  <!-- ===================================================
+       1) HEADER Y NAVEGACIÓN
+       =================================================== -->
+  <header>
+    <!-- ! El <header> sirve para contener la cabecera de la página.
+         Aquí normalmente se coloca:
+         - El título principal o logotipo
+         - El menú de navegación (<nav>)
+    -->
+
+    <!-- TODO Alumno: Escribe aquí tu nombre o el título de tu página -->
+    <h1>Mi Portafolio - [Tu Nombre]</h1>
+
+    <!-- ? Consejo: Usa <nav> para definir un menú de navegación semántico -->
+    <nav>
+      <!-- * Ejemplo de menú -->
+      <a href="#sobre-mi">Sobre mí</a> |
+      <a href="#proyectos">Proyectos</a> |
+      <a href="#galeria">Galería</a> |
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- ===================================================
+       2) SECCIÓN "SOBRE MÍ"
+       =================================================== -->
+  <section id="sobre-mi">
+    <!-- ! <section> representa un bloque temático con un propósito concreto -->
+    <!-- TODO Alumno: Añade aquí un párrafo de presentación personal -->
+    <h2>Sobre mí</h2>
+
+    <!-- * Ejemplo -->
+    <p>Hola, me llamo [Tu Nombre]. Estoy aprendiendo desarrollo web y esta es
+       mi primera página hecha desde cero con HTML.</p>
+  </section>
+
+  <!-- ===================================================
+       3) PROYECTOS
+       =================================================== -->
+  <section id="proyectos">
+    <h2>Proyectos</h2>
+    <!-- TODO Alumno: Lista tus proyectos usando <ul> o <ol> -->
+    <!-- ? Diferencia:
+         - <ul>: lista sin orden (viñetas)
+         - <ol>: lista numerada
+    -->
+
+    <!-- * Ejemplo -->
+    <ul>
+      <li>Proyecto 1: Mi primera página web</li>
+      <li>Proyecto 2: Curriculum online</li>
+    </ul>
+  </section>
+
+  <!-- ===================================================
+       4) GALERÍA DE IMÁGENES
+       =================================================== -->
+  <section id="galeria">
+    <h2>Galería</h2>
+    <!-- TODO Alumno: Inserta al menos 3 imágenes -->
+    <!-- ! Usa siempre el atributo "alt" para accesibilidad -->
+    
+    <!-- * Ejemplo con <figure> y <figcaption> -->
+    <figure>
+      <img src="https://via.placeholder.com/200" alt="Ejemplo de imagen 1">
+      <figcaption>Proyecto en construcción</figcaption>
+    </figure>
+
+    <figure>
+      <img src="https://via.placeholder.com/200" alt="Ejemplo de imagen 2">
+      <figcaption>Mi primer diseño web</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================================================
+       5) FORMULARIO DE CONTACTO
+       =================================================== -->
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <!-- ! Los formularios permiten recibir datos del usuario -->
+    <!-- TODO Alumno: Crea un formulario sencillo -->
+
+    <!-- * Ejemplo -->
+    <form>
+      <label for="nombre">Nombre:</label><br>
+      <input type="text" id="nombre" name="nombre"><br><br>
+
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email"><br><br>
+
+      <label for="mensaje">Mensaje:</label><br>
+      <textarea id="mensaje" name="mensaje"></textarea><br><br>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <!-- ===================================================
+       6) FOOTER
+       =================================================== -->
+  <footer>
+    <!-- ! El <footer> representa el pie de página -->
+    <!-- TODO Alumno: Añade enlaces a tus redes sociales -->
+    <p>© 2025 - Creado por [Tu Nombre]</p>
+
+    <!-- * Ejemplo -->
+    <p>
+      <a href="https://github.com/">GitHub</a> |
+      <a href="https://linkedin.com/">LinkedIn</a>
+    </p>
+  </footer>
+
+</body>
+</html>
