@@ -70,129 +70,6 @@
     <div class="tip">💡 TIP: usa <code>alert()</code> solo para confirmar; muestra siempre un resultado visible en la página.</div>
   </section>
 
-  <!-- =========================================================
-  14) OBJETOS (avanzado)
-  ========================================================== -->
-  <section id="s14">
-    <h2>14) Objetos (avanzado): métodos, this, clonado</h2>
-    <div class="acciones">
-      <button onclick="mostrarResumenPersona()">Crear y mostrar resumen()</button>
-      <button onclick="clonarYActualizar()">Clonar y actualizar</button>
-      <button onclick="listarClavesValores()">Listar claves/valores</button>
-    </div>
-    <div id="res14" class="resultado"></div>
-
-    <script>
-      // Ejemplo de objeto con método que usa 'this'
-      const personaAvz = {
-        nombre: "Lucía",
-        edad: 32,
-        ciudad: "Sevilla",
-        saludo: function(){ return `Soy ${this.nombre} de ${this.ciudad}.`; }
-      };
-      function mostrarResumenPersona(){
-        const { nombre, edad, ciudad } = personaAvz; // destructuring
-        const msg = `${personaAvz.saludo()} Tengo ${edad} años.`;
-        document.getElementById('res14').innerText = msg;
-      }
-      function clonarYActualizar(){
-        // Clonar superficialmente con spread y actualizar un campo
-        const copia = { ...personaAvz, ciudad: "Valencia" };
-        document.getElementById('res14').innerText =
-          `Clonado: ${copia.nombre} ahora vive en ${copia.ciudad}. (Original: ${personaAvz.ciudad})`;
-      }
-      function listarClavesValores(){
-        const claves = Object.keys(personaAvz).join(', ');
-        const vals = Object.values(personaAvz).map(v => typeof v === 'function' ? '[función]' : v).join(', ');
-        document.getElementById('res14').innerHTML =
-          `<strong>Claves:</strong> ${claves}<br><strong>Valores:</strong> ${vals}`;
-      }
-    </script>
-
-    <!-- TODO Alumno:
-         1) Añade un método cambiarCiudad(nueva) que actualice this.ciudad y repinte el resultado.
-         2) BONUS: Crea un objeto coche con método resumen() y compáralo con personaAvz. -->
-  </section>
-
-  <!-- =========================================================
-  15) AJAX (fetch a API pública)
-  ========================================================== -->
-  <section id="s15">
-    <h2>15) AJAX con fetch: cargar datos remotos</h2>
-    <div class="acciones">
-      <button onclick="cargarPost()">Cargar post #1</button>
-      <button onclick="limpiarPost()">Limpiar</button>
-    </div>
-    <div id="res15" class="resultado"></div>
-
-    <script>
-      async function cargarPost(){
-        const box = document.getElementById('res15');
-        box.innerText = 'Cargando...';
-        try{
-          const resp = await fetch('https://jsonplaceholder.typicode.com/posts/1');
-          if(!resp.ok) throw new Error('HTTP ' + resp.status);
-          const data = await resp.json();
-          box.innerHTML = `<strong>${data.title}</strong><br><span class="muted">ID: ${data.id}</span><p>${data.body}</p>`;
-        }catch(err){
-          box.innerText = 'Error al cargar: ' + err.message;
-        }
-      }
-      function limpiarPost(){ document.getElementById('res15').innerText = ''; }
-    </script>
-
-    <!-- TODO Alumno:
-         1) Cambia la URL para cargar el post con id indicado por prompt().
-         2) BONUS: Carga los comentarios del post y muéstralos como lista. -->
-  </section>
-
-  <!-- =========================================================
-  16) PROMESAS (then/catch y async/await)
-  ========================================================== -->
-  <section id="s16">
-    <h2>16) Promesas: asincronía controlada</h2>
-    <div class="acciones">
-      <button onclick="demoPromiseThen()">Ejecutar con then/catch</button>
-      <button onclick="demoPromiseAwait()">Ejecutar con async/await</button>
-    </div>
-    <div id="res16" class="resultado"></div>
-
-    <script>
-      // Crea una promesa que resuelve o rechaza tras 1.2s
-      function tareaAsincrona(exito=true){
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            if(exito) resolve('✅ Operación completada');
-            else reject(new Error('❌ Falló la operación'));
-          }, 1200);
-        });
-      }
-      function demoPromiseThen(){
-        const box = document.getElementById('res16');
-        box.innerText = 'Ejecutando...';
-        // 50% éxito/fracaso para ver ambos caminos
-        const ok = Math.random() >= 0.5;
-        tareaAsincrona(ok)
-          .then(msg => { box.innerText = msg; })
-          .catch(err => { box.innerText = 'Error: ' + err.message; })
-          .finally(() => { box.insertAdjacentHTML('beforeend', '<br><span class="muted">(finalizó)</span>'); });
-      }
-      async function demoPromiseAwait(){
-        const box = document.getElementById('res16');
-        box.innerText = 'Esperando resultado...';
-        try{
-          const msg = await tareaAsincrona(true);
-          box.innerText = msg + ' (vía await)';
-        }catch(err){
-          box.innerText = 'Error: ' + err.message;
-        }
-      }
-    </script>
-
-    <!-- TODO Alumno:
-         1) Cambia tareaAsincrona para que reciba un tiempo (ms) por prompt() y muestra una barra de progreso simple.
-         2) BONUS: Encadena dos promesas (A -> B) y maneja errores con recuperación. -->
-  </section>
 
   <!-- =========================================================
   1) alert()
@@ -547,6 +424,130 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
          ✔ Integra estas mejoras en TU portfolio.
          ✔ Prueba en móvil/escritorio (responsive).
          ✔ Publica en Netlify/Vercel si quieres compartirlo. -->
+  </section>
+
+  <!-- =========================================================
+  14) OBJETOS (avanzado)
+  ========================================================== -->
+  <section id="s14">
+    <h2>14) Objetos (avanzado): métodos, this, clonado</h2>
+    <div class="acciones">
+      <button onclick="mostrarResumenPersona()">Crear y mostrar resumen()</button>
+      <button onclick="clonarYActualizar()">Clonar y actualizar</button>
+      <button onclick="listarClavesValores()">Listar claves/valores</button>
+    </div>
+    <div id="res14" class="resultado"></div>
+
+    <script>
+      // Ejemplo de objeto con método que usa 'this'
+      const personaAvz = {
+        nombre: "Lucía",
+        edad: 32,
+        ciudad: "Sevilla",
+        saludo: function(){ return `Soy ${this.nombre} de ${this.ciudad}.`; }
+      };
+      function mostrarResumenPersona(){
+        const { nombre, edad, ciudad } = personaAvz; // destructuring
+        const msg = `${personaAvz.saludo()} Tengo ${edad} años.`;
+        document.getElementById('res14').innerText = msg;
+      }
+      function clonarYActualizar(){
+        // Clonar superficialmente con spread y actualizar un campo
+        const copia = { ...personaAvz, ciudad: "Valencia" };
+        document.getElementById('res14').innerText =
+          `Clonado: ${copia.nombre} ahora vive en ${copia.ciudad}. (Original: ${personaAvz.ciudad})`;
+      }
+      function listarClavesValores(){
+        const claves = Object.keys(personaAvz).join(', ');
+        const vals = Object.values(personaAvz).map(v => typeof v === 'function' ? '[función]' : v).join(', ');
+        document.getElementById('res14').innerHTML =
+          `<strong>Claves:</strong> ${claves}<br><strong>Valores:</strong> ${vals}`;
+      }
+    </script>
+
+    <!-- TODO Alumno:
+         1) Añade un método cambiarCiudad(nueva) que actualice this.ciudad y repinte el resultado.
+         2) BONUS: Crea un objeto coche con método resumen() y compáralo con personaAvz. -->
+  </section>
+
+  <!-- =========================================================
+  15) AJAX (fetch a API pública)
+  ========================================================== -->
+  <section id="s15">
+    <h2>15) AJAX con fetch: cargar datos remotos</h2>
+    <div class="acciones">
+      <button onclick="cargarPost()">Cargar post #1</button>
+      <button onclick="limpiarPost()">Limpiar</button>
+    </div>
+    <div id="res15" class="resultado"></div>
+
+    <script>
+      async function cargarPost(){
+        const box = document.getElementById('res15');
+        box.innerText = 'Cargando...';
+        try{
+          const resp = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+          if(!resp.ok) throw new Error('HTTP ' + resp.status);
+          const data = await resp.json();
+          box.innerHTML = `<strong>${data.title}</strong><br><span class="muted">ID: ${data.id}</span><p>${data.body}</p>`;
+        }catch(err){
+          box.innerText = 'Error al cargar: ' + err.message;
+        }
+      }
+      function limpiarPost(){ document.getElementById('res15').innerText = ''; }
+    </script>
+
+    <!-- TODO Alumno:
+         1) Cambia la URL para cargar el post con id indicado por prompt().
+         2) BONUS: Carga los comentarios del post y muéstralos como lista. -->
+  </section>
+
+  <!-- =========================================================
+  16) PROMESAS (then/catch y async/await)
+  ========================================================== -->
+  <section id="s16">
+    <h2>16) Promesas: asincronía controlada</h2>
+    <div class="acciones">
+      <button onclick="demoPromiseThen()">Ejecutar con then/catch</button>
+      <button onclick="demoPromiseAwait()">Ejecutar con async/await</button>
+    </div>
+    <div id="res16" class="resultado"></div>
+
+    <script>
+      // Crea una promesa que resuelve o rechaza tras 1.2s
+      function tareaAsincrona(exito=true){
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if(exito) resolve('✅ Operación completada');
+            else reject(new Error('❌ Falló la operación'));
+          }, 1200);
+        });
+      }
+      function demoPromiseThen(){
+        const box = document.getElementById('res16');
+        box.innerText = 'Ejecutando...';
+        // 50% éxito/fracaso para ver ambos caminos
+        const ok = Math.random() >= 0.5;
+        tareaAsincrona(ok)
+          .then(msg => { box.innerText = msg; })
+          .catch(err => { box.innerText = 'Error: ' + err.message; })
+          .finally(() => { box.insertAdjacentHTML('beforeend', '<br><span class="muted">(finalizó)</span>'); });
+      }
+      async function demoPromiseAwait(){
+        const box = document.getElementById('res16');
+        box.innerText = 'Esperando resultado...';
+        try{
+          const msg = await tareaAsincrona(true);
+          box.innerText = msg + ' (vía await)';
+        }catch(err){
+          box.innerText = 'Error: ' + err.message;
+        }
+      }
+    </script>
+
+    <!-- TODO Alumno:
+         1) Cambia tareaAsincrona para que reciba un tiempo (ms) por prompt() y muestra una barra de progreso simple.
+         2) BONUS: Encadena dos promesas (A -> B) y maneja errores con recuperación. -->
   </section>
 
 </main>
