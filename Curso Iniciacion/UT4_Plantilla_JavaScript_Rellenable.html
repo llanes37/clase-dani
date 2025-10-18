@@ -78,12 +78,22 @@
     <div class="acciones">
       <button onclick="saludar()">Mostrar saludo</button>
     </div>
+    <div class="acciones">
+      <button onclick="despedir()">Mostrar despedida</button>
+    </div>
     <div id="res1" class="resultado">👉 Aquí verás el resultado textual.</div>
 
     <script>
       function saludar(){
         alert("¡Hola! Bienvenido/a a JavaScript 🎉");
         document.getElementById('res1').innerText = "Se mostró un alert() de saludo.";
+      }
+    </script>
+    <script>
+      // TODO Alumno:
+      function despedir(){
+        alert("¡Hasta luego!");
+        document.getElementById('res1').innerText = "Se mostró un alert() de despedida.";
       }
     </script>
 
@@ -103,6 +113,9 @@
     <div class="acciones">
       <button onclick="preguntarNombre()">Pedir nombre</button>
     </div>
+    <div>
+      <button onclick="preguntarCiudad()">Pedir ciudad</button>
+    </div>
     <div id="res2" class="resultado"></div>
 
     <script>
@@ -111,6 +124,15 @@
         const res = document.getElementById('res2');
         if(nombre){ res.innerText = `Encantado/a, ${nombre}.`; alert(res.innerText); }
         else{ res.innerText = "No escribiste nombre."; }
+      }
+    </script>
+    <script>
+      // TODO Alumno:
+      function preguntarCiudad(){
+        const ciudad = prompt("¿En qué ciudad vives?");
+        const res = document.getElementById('res2');
+        if(ciudad){ res.innerText = `Vives en ${ciudad}.`; alert(res.innerText); }
+        else{ res.innerText = "No escribiste ciudad."; }
       }
     </script>
 
@@ -127,6 +149,9 @@
     <div class="acciones">
       <button onclick="esMayor()">¿Eres mayor de edad?</button>
     </div>
+    <div>
+      <button onclick="comprobarTreinta()">¿Tienes 30 o más?</button>
+    </div>
     <div id="res3" class="resultado"></div>
 
     <script>
@@ -141,6 +166,20 @@
         alert(msg);
       }
     </script>
+    <script>
+      // TODO Alumno:
+      function comprobarTreinta(){
+        const edad = Number(prompt("¿Edad?"));
+        let msg = "";
+        if(Number.isNaN(edad)) msg = "Entrada no válida.";
+        else if(edad >= 30) msg = "30 o más";
+        else if(edad >= 13 && edad <= 17) msg = "Entre 13 y 17";
+        else msg = "menos de 30";
+        document.getElementById('res3').innerText = msg;
+        alert(msg);
+      }
+    </script>
+
 
     <!-- TODO Alumno:
          comprobarTreinta(): "30 o más" / "menos de 30". BONUS: caso 13–17. -->
@@ -154,6 +193,9 @@
     <div class="acciones">
       <button onclick="demoMultiplicar()">Calcular 3 × 4</button>
     </div>
+    <div>
+      <button onclick="demoRestar()">Restar dos números</button>
+    </div>
     <div id="res4" class="resultado"></div>
 
     <script>
@@ -161,6 +203,22 @@
       function demoMultiplicar(){
         const r = multiplicar(3,4);
         document.getElementById('res4').innerText = "3 × 4 = " + r;
+      }
+    </script>
+    <script>
+      // TODO Alumno:
+      function restar(a,b){ return a-b; }
+      function demoRestar(){
+        const num1 = Number(prompt("Número 1:"));
+        const num2 = Number(prompt("Número 2:"));
+        if(Number.isNaN(num1) || Number.isNaN(num2)){
+          document.getElementById('res4').innerText = "Entrada no válida.";
+          alert("Entrada no válida.");
+          return;
+        }
+        const r = restar(num1, num2);
+        document.getElementById('res4').innerText = `${num1} - ${num2} = ${r}`;
+        alert(`${num1} - ${num2} = ${r}`);
       }
     </script>
 
@@ -192,8 +250,30 @@
       }
     </script>
 
+    <div class="acciones">
+      <button onclick="sumarUnoACinco()">Sumar 1 → 5</button>
+      <button onclick="mostrarCuadrados()">Mostrar cuadrados 1 → 5</button>
+    </div>
+
+    <script>
+      // Ejercicio sencillo: sumar del 1 al 5 y mostrar cuadrados del 1 al 5
+      function sumarUnoACinco(){
+      let suma = 0;
+      for(let i = 1; i <= 5; i++){ suma += i; }
+      document.getElementById('res5').innerText = `Suma 1→5 = ${suma}`;
+      }
+
+      function mostrarCuadrados(){
+      const cuadrados = [];
+      for(let i = 1; i <= 5; i++){ cuadrados.push(i * i); }
+      document.getElementById('res5').innerText = `Cuadrados: ${cuadrados.join(" • ")}`;
+      }
+    </script>
+
     <!-- TODO Alumno:
-         Pares 2..10. BONUS: FizzBuzz 1..20. -->
+       Reemplaza FizzBuzz por estos ejercicios más sencillos:
+       - sumarUnoACinco()
+       - mostrarCuadrados() -->
   </section>
 
   <!-- =========================================================
@@ -205,6 +285,9 @@
       <button onclick="listarFrutas()">Mostrar frutas</button>
       <button onclick="quitarPrimera()">Quitar primera</button>
     </div>
+    <div>
+      <button onclick="agregarAnimal()">Agregar animal</button>
+    </div>
     <div id="res6" class="resultado"></div>
 
     <script>
@@ -212,6 +295,20 @@
       function renderFrutas(){ document.getElementById('res6').innerText = "Frutas: " + frutas.join(", "); }
       function listarFrutas(){ renderFrutas(); }
       function quitarPrimera(){ frutas.shift(); renderFrutas(); }
+    </script>
+    <script>
+      // TODO Alumno:
+      const animales = [];
+      function agregarAnimal(){
+        const nuevo = prompt("Nombre del animal:");
+        if(nuevo){
+          animales.push(nuevo);
+          renderAnimales();
+        }
+      }
+      function renderAnimales(){
+        document.getElementById('res6').innerText = "Animales: " + (animales.length ? animales.join(", ") : "(ninguno)");
+      }
     </script>
 
     <!-- TODO Alumno:
@@ -226,16 +323,30 @@
     <div class="acciones">
       <button onclick="mostrarPersona()">Mostrar persona</button>
     </div>
+    <div>
+      <button onclick="mostrarCoche()">Mostrar coche</button>
+    </div>
     <div id="res7" class="resultado"></div>
 
     <script>
       function mostrarPersona(){
         const persona = { nombre:"Alex", edad:28, ciudad:"Madrid" };
+        const dani = { nombre:"Dani", edad:25, ciudad:"Barcelona" };
         document.getElementById('res7').innerText =
-          `Me llamo ${persona.nombre}, tengo ${persona.edad} años y vivo en ${persona.ciudad}.`;
+          `Me llamo ${dani.nombre}, tengo ${dani.edad} años y vivo en ${dani.ciudad}.`;
       }
     </script>
-
+    <script>
+      // TODO Alumno:
+      function mostrarCoche(){
+        const coche = { marca:"Toyota", modelo:"Corolla", año:2020,
+                        resumen: function(){
+                          return `Coche: ${this.marca} ${this.modelo} (${this.año})`;
+                        }
+                      };
+        document.getElementById('res7').innerText = coche.resumen();
+      }
+    </script>
     <!-- TODO Alumno:
          Crea coche{marca,modelo,año} y muéstralo. BONUS: método resumen(). -->
   </section>
@@ -249,6 +360,7 @@
     <div class="acciones">
       <button onclick="cambiarTexto()">Cambiar texto</button>
       <button onclick="cambiarEstilo()">Cambiar estilo</button>
+      <button onclick="cambiarCursiva()">Cambiar cursiva</button>
     </div>
     <div id="res8" class="resultado"></div>
 
@@ -262,6 +374,18 @@
         const p = document.getElementById('pDemo');
         p.style.color = "#2563eb"; p.style.fontWeight = "700";
         document.getElementById('res8').innerText = "Aplicado color y negrita.";
+      }
+    </script>
+    <script>
+      function cambiarEstilo(){
+        const p = document.getElementById('pDemo');
+        p.style.color = "#2563eb"; p.style.fontWeight = "700";
+        document.getElementById('res8').innerText = "Aplicado color y negrita.";
+      }
+      function cambiarCursiva(){
+        const p = document.getElementById('pDemo');
+        p.style.fontStyle = p.style.fontStyle === "italic" ? "normal" : "italic";
+        document.getElementById('res8').innerText = "Cursiva alternada.";
       }
     </script>
 

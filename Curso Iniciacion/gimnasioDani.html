@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gimnasio Dani · Fuerza & Salud</title>
+  <style>
+    /* Estilos globales */
+    :root{
+      --primary:#2563eb; /* azul principal */
+      --primary-700:#1e40af;
+      --bg:#f5f7fb;      /* fondo claro */
+      --text:#222;       /* texto principal */
+      --muted:#6b7280;   /* gris para secundarios */
+      --card:#ffffff;    /* tarjeta */
+      --border:#e5e7eb;  /* borde suave */
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin:0; color:var(--text); background:var(--bg);
+      line-height:1.5;
+    }
+
+    a{ color:var(--primary); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    /* Cabecera + navegación */
+    header{
+      background:linear-gradient(135deg, var(--primary), var(--primary-700));
+      color:#fff; padding:20px 16px; position:sticky; top:0; z-index:10;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+    }
+    .wrap{ max-width:1100px; margin:0 auto; padding:0 12px; }
+    .brand{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .brand h1{ font-size:22px; margin:0; }
+
+    nav ul{ list-style:none; padding:0; margin:8px 0 0 0; display:flex; flex-wrap:wrap; gap:12px; }
+    nav a{ color:#fff; padding:6px 10px; border-radius:6px; }
+    nav a:hover{ background:rgba(255,255,255,.15); text-decoration:none; }
+
+    /* Secciones */
+    section{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin:18px 0; box-shadow:0 8px 18px rgba(0,0,0,.06); }
+    h2{ color:var(--primary); margin-top:0; }
+    .btn{ display:inline-block; background:#fff; color:var(--primary); border:1px solid var(--primary); padding:10px 14px; border-radius:8px; font-weight:600; }
+    .btn:hover{ background:var(--primary); color:#fff; text-decoration:none; }
+
+    /* Intro con float (promo a la derecha) */
+    .intro.clearfix::after{ content:""; display:table; clear:both; }
+    .intro .promo{
+      float:right; width:280px; margin:0 0 12px 16px; padding:16px; border-radius:12px;
+      background:#fef3c7; border:1px solid #f59e0b; color:#7c2d12;
+    }
+
+    /* Grid de clases */
+    .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .card{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+    .card h3{ margin:0 0 8px 0; }
+    .chips{ margin-top:8px; }
+    .chip{ display:inline-block; background:#e9d5ff; border:1px solid #a78bfa; color:#3730a3; border-radius:9999px; padding:6px 10px; margin:4px 6px 0 0; font-size:13px; }
+    .chip.inline{ display:inline; } /* inline no respeta width/height */
+
+    @media (max-width: 900px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px){ .grid{ grid-template-columns: 1fr; } }
+
+    /* Planes con cajas (modelo de caja: padding, margin, border) */
+    .planes{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .plan{ border:2px solid var(--primary); border-radius:14px; padding:18px; background:#eef2ff; }
+    .plan.destacado{ background:#dbeafe; border-color:#1d4ed8; box-shadow:0 10px 20px rgba(29,78,216,.15); }
+
+    /* Horarios: tabla dentro de un contenedor con overflow-x auto en móviles */
+    .tabla-scroll{ overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
+    table{ border-collapse: collapse; width:100%; min-width:600px; }
+    th, td{ border-bottom:1px solid var(--border); padding:10px 12px; text-align:left; }
+    thead th{ background:#f3f4f6; }
+
+    /* Overflow demo: visible, hidden, scroll, auto */
+    .overflow-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
+    .ov-card{ border:1px solid var(--border); background:#fff; border-radius:10px; padding:10px; height:120px; }
+    .ov-visible{ overflow:visible; }
+    .ov-hidden{ overflow:hidden; }
+    .ov-scroll{ overflow:scroll; }
+    .ov-auto{ overflow:auto; }
+
+    /* Galería horizontal con overflow-x:auto */
+    .galeria-x{ overflow-x:auto; white-space:nowrap; border:1px solid var(--border); border-radius:10px; padding:10px; }
+    .thumb{ display:inline-block; width:200px; height:120px; margin-right:10px; border-radius:10px; background:linear-gradient(135deg,#06b6d4,#2563eb); position:relative; color:#fff; font-weight:700; text-align:center; line-height:120px; }
+    .thumb:nth-child(2n){ background:linear-gradient(135deg,#22c55e,#16a34a); }
+    .thumb:nth-child(3n){ background:linear-gradient(135deg,#f59e0b,#ef4444); }
+
+    /* Footer */
+    footer{ color:#fff; text-align:center; padding:18px; background:#0f172a; border-radius:12px; margin:18px 0; }
+
+    /* Utilidades */
+    .muted{ color:var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <h1>Gimnasio Dani</h1>
+        <nav aria-label="Principal">
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#clases">Clases</a></li>
+            <li><a href="#entrenadores">Entrenadores</a></li>
+            <li><a href="#planes">Planes</a></li>
+            <li><a href="#horarios">Horarios</a></li>
+            <li><a href="#overflow">Overflow</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="inicio" class="intro clearfix">
+      <div class="promo">
+        <strong>Promo de bienvenida</strong>
+        <p class="muted">Matricúlate este mes y llévate 2 semanas extra gratis.</p>
+        <a class="btn" href="#planes">Ver planes</a>
+      </div>
+      <h2>Fuerza, salud y comunidad</h2>
+      <p>
+        Bienvenido a <strong>Gimnasio Dani</strong>. Te ayudamos a construir hábitos duraderos con clases
+        guiadas, entrenadores cercanos y un ambiente motivador. A la derecha verás una
+        <em>caja de promoción</em> que usa <code>float:right</code>; este texto fluye a su alrededor
+        y el contenedor usa <em>clearfix</em> para no colapsar.
+      </p>
+      <p>
+        Descubre nuestras clases, planes y entrenadores. Más abajo verás ejemplos prácticos
+        de grid, inline vs inline-block y diferentes comportamientos de <code>overflow</code>.
+      </p>
+      <a class="btn" href="#clases">Explorar clases</a>
+    </section>
+
+    <section id="clases">
+      <h2>Clases destacadas (Grid)</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>HIIT 45'</h3>
+          <p class="muted">Alta intensidad para quemar calorías y mejorar tu resistencia.</p>
+          <div class="chips">
+            <span class="chip">Cardio</span>
+            <span class="chip inline">Fuerza</span>
+            <span class="chip">Grupal</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Yoga Flow</h3>
+          <p class="muted">Movilidad, respiración y control postural para equilibrar cuerpo y mente.</p>
+          <div class="chips">
+            <span class="chip">Movilidad</span>
+            <span class="chip inline">Mindfulness</span>
+            <span class="chip">Bajo impacto</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Funcional</h3>
+          <p class="muted">Entrenamiento completo con material básico y progresiones.</p>
+          <div class="chips">
+            <span class="chip">Fuerza</span>
+            <span class="chip inline">Core</span>
+            <span class="chip">Técnica</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="entrenadores">
+      <h2>Nuestros entrenadores (Inline vs Inline-block)</h2>
+      <p class="muted">Las etiquetas moradas son <em>inline-block</em> (respetan ancho/alto). Las que marcan “inline” no.</p>
+      <div class="grid">
+        <article class="card">
+          <h3>Laura</h3>
+          <p>Especialista en fuerza y acondicionamiento.</p>
+          <div class="chips">
+            <span class="chip">Power</span>
+            <span class="chip inline">inline</span>
+            <span class="chip">Hipertrofia</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Miguel</h3>
+          <p>Amante del cardio y la técnica de carrera.</p>
+          <div class="chips">
+            <span class="chip">Cardio</span>
+            <span class="chip">Técnica</span>
+            <span class="chip inline">inline</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Eva</h3>
+          <p>Yoga y movilidad con enfoque en respiración.</p>
+          <div class="chips">
+            <span class="chip">Yoga</span>
+            <span class="chip inline">inline</span>
+            <span class="chip">Movilidad</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="planes">
+      <h2>Planes (Modelo de caja)</h2>
+      <div class="planes">
+        <div class="plan">
+          <h3>Básico</h3>
+          <p>Acceso de lunes a viernes en horario de mañana.</p>
+          <p><strong>19,90€</strong> / mes</p>
+        </div>
+        <div class="plan destacado">
+          <h3>Completo</h3>
+          <p>Acceso total + clases colectivas ilimitadas.</p>
+          <p><strong>29,90€</strong> / mes</p>
+        </div>
+        <div class="plan">
+          <h3>Premium</h3>
+          <p>Todo incluido + 1 sesión personal semanal.</p>
+          <p><strong>49,90€</strong> / mes</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="horarios">
+      <h2>Horarios (tabla con overflow-x)</h2>
+      <div class="tabla-scroll" role="region" aria-label="Tabla de horarios desplazable">
+        <table>
+          <thead>
+            <tr>
+              <th>Hora</th>
+              <th>Lunes</th>
+              <th>Martes</th>
+              <th>Miércoles</th>
+              <th>Jueves</th>
+              <th>Viernes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>08:00</td><td>Yoga</td><td></td><td>Funcional</td><td></td><td>HIIT</td>
+            </tr>
+            <tr>
+              <td>10:00</td><td></td><td>HIIT</td><td></td><td>Funcional</td><td></td>
+            </tr>
+            <tr>
+              <td>18:00</td><td>Funcional</td><td>Yoga</td><td></td><td>HIIT</td><td></td>
+            </tr>
+            <tr>
+              <td>20:00</td><td>HIIT</td><td></td><td>Funcional</td><td></td><td>Yoga</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">En pantallas pequeñas, desplázate horizontalmente para ver todas las columnas.</p>
+    </section>
+
+    <section id="overflow">
+      <h2>Overflow (visible · hidden · scroll · auto)</h2>
+      <div class="overflow-grid">
+        <div class="ov-card ov-visible">
+          <strong>visible</strong>
+          <p>Este texto es muy largo y sobrepasa el alto fijado de la caja, verás cómo se sale por debajo sin recorte.</p>
+        </div>
+        <div class="ov-card ov-hidden">
+          <strong>hidden</strong>
+          <p>Contenido largo que se recorta y no muestra barras. Útil para mini-cards o máscaras de imagen.</p>
+        </div>
+        <div class="ov-card ov-scroll">
+          <strong>scroll</strong>
+          <p>Contenido largo con barras siempre visibles (aunque no hagan falta). Puede mostrar scrollbars.</p>
+        </div>
+        <div class="ov-card ov-auto">
+          <strong>auto</strong>
+          <p>Solo muestra barras si hacen falta. Ideal para cajas con contenido variable.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria">
+      <h2>Galería horizontal (overflow-x: auto)</h2>
+      <div class="galeria-x" tabindex="0" aria-label="Desplázate lateralmente para ver más imágenes">
+        <div class="thumb">Sala pesas</div>
+        <div class="thumb">HIIT</div>
+        <div class="thumb">Yoga</div>
+        <div class="thumb">Boxing</div>
+        <div class="thumb">Cardio</div>
+        <div class="thumb">Funcional</div>
+        <div class="thumb">Estiramientos</div>
+      </div>
+      <p class="muted">Sugerencia: usa el trackpad o arrastra la barra para desplazarte.</p>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p>
+        ¿Tienes dudas? Escríbenos a <a href="mailto:hola@gimnasiodani.com">hola@gimnasiodani.com</a>
+        o pásate por Av. Ejemplo 123, Ciudad.
+      </p>
+      <a class="btn" href="#inicio">Volver arriba</a>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Gimnasio Dani · Hecho con HTML y CSS básicos
+    </footer>
+  </main>
+
+  <script>
+    // Año dinámico en el footer (detalle opcional)
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
